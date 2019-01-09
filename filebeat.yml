@@ -1,0 +1,20 @@
+filebeat.prospectors:
+- type: docker
+  containers:
+    ids: "*"
+    path: /var/lib/docker/containers
+    stream: all
+  json.message_key: log
+  json.keys_under_root: false
+  document_type: 'docker-logs'
+  processors:
+  - add_docker_metadata: ~
+
+output.elasticsearch:
+  hosts: ["${ES_HOST}:${ES_PORT}"]
+  user: ${ES_USER}
+  password: ${ES_PWD}
+  protocol: https
+  ssl:
+    enabled: true
+    certificate_authorities: ["${CA_PATH}"]
