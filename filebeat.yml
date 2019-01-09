@@ -1,4 +1,4 @@
-filebeat.prospectors:
+filebeat.inputs:
 - type: docker
   containers:
     ids: "*"
@@ -9,6 +9,10 @@ filebeat.prospectors:
   document_type: 'docker-logs'
   processors:
   - add_docker_metadata: ~
+
+- type: syslog
+  protocol.tcp:
+    host: "0.0.0.0:9000"
 
 output.elasticsearch:
   hosts: ["${ES_HOST}:${ES_PORT}"]
