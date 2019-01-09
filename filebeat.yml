@@ -18,3 +18,4 @@ output.elasticsearch:
   ssl:
     enabled: true
     certificate_authorities: ["${CA_PATH}"]
+    verification_mode: none
