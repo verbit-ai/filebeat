@@ -3,5 +3,3 @@ USER root
 COPY filebeat.yml root.pem /
 RUN yum install -y gettext
 RUN envsubst < /filebeat.yml > /usr/share/filebeat/filebeat.yml
-RUN chown root:filebeat /usr/share/filebeat/filebeat.yml
-USER filebeat
