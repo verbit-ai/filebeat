@@ -12,7 +12,7 @@ filebeat.prospectors:
 
 output.elasticsearch:
   hosts: ["${ES_HOST}:${ES_PORT}"]
-  user: ${ES_USER}
+  username: ${ES_USER}
   password: ${ES_PWD}
   protocol: https
   ssl:
