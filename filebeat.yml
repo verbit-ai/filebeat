@@ -6,6 +6,7 @@ filebeat.inputs:
     stream: all
   json.message_key: log
   json.keys_under_root: false
+  json.ignore_decoding_error: true
   document_type: 'docker-logs'
   processors:
   - add_docker_metadata: ~
