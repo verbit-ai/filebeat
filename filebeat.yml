@@ -16,6 +16,10 @@ filebeat.inputs:
   protocol.tcp:
     host: "0.0.0.0:9000"
 
+- type: tcp
+  max_message_size: 10MiB
+  host: "0.0.0.0:9010"
+
 output.elasticsearch:
   hosts: ["${ES_HOST}:${ES_PORT}"]
   username: ${ES_USER}
