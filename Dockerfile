@@ -1,4 +1,4 @@
-FROM docker.elastic.co/beats/filebeat:6.5.4
+FROM docker.elastic.co/beats/filebeat:6.8.1
 USER root
 COPY filebeat.yml root.pem /
 RUN yum install -y gettext
