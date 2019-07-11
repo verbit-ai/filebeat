@@ -10,6 +10,8 @@ filebeat.inputs:
   document_type: 'docker-logs'
   processors:
   - add_docker_metadata: ~
+  - drop_fields:
+      fields: ["json.arguments"]
 
 - type: syslog
   document_type: 'syslog'
