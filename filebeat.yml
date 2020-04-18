@@ -29,3 +29,6 @@ output.elasticsearch:
     enabled: true
     certificate_authorities: ["${CA_PATH}"]
     verification_mode: none
+
+fields.ip_address: "${IP_ADDRESS}"
+fields.ec2_instance_id: "${EC2_INSTANCE_ID}"
