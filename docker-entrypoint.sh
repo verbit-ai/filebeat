@@ -6,8 +6,18 @@ if  ! [[ ${IP_ADDRESS} =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
 then
   IP_ADDRESS="0.0.0.0"
 fi
+
+FILEBEAT_VERSION="6.8.1"
+if [ -z "$ES_INDEX_PREFIX" ];then
+  # default elasticsearch index prefix
+  ES_INDEX_PREFIX="filebeat"
+fi
+
 export IP_ADDRESS=${IP_ADDRESS}
 export EC2_INSTANCE_ID=${EC2_INSTANCE_ID}
-echo EC2_INSTANCE_ID $EC2_INSTANCE_ID IP_ADDRESS ${IP_ADDRESS}
+export ES_INDEX_PREFIX=${ES_INDEX_PREFIX}
+export FILEBEAT_VERSION=${FILEBEAT_VERSION}
+
+echo EC2_INSTANCE_ID $EC2_INSTANCE_ID IP_ADDRESS ${IP_ADDRESS} ES_INDEX_PREFIX ${ES_INDEX_PREFIX} FILEBEAT_VERSION ${FILEBEAT_VERSION}
 envsubst < /filebeat.yml > /usr/share/filebeat/filebeat.yml
 /usr/share/filebeat/filebeat -e -c /usr/share/filebeat/filebeat.yml

@@ -25,6 +25,7 @@ output.elasticsearch:
   username: ${ES_USER}
   password: ${ES_PWD}
   protocol: https
+  index: "${ES_INDEX_PREFIX}-${FILEBEAT_VERSION}-%{+YYYY.MM.dd}"
   ssl:
     enabled: true
     certificate_authorities: ["${CA_PATH}"]
@@ -32,3 +33,7 @@ output.elasticsearch:
 
 fields.ip_address: "${IP_ADDRESS}"
 fields.ec2_instance_id: "${EC2_INSTANCE_ID}"
+
+setup.template.name: "${ES_INDEX_PREFIX}-${FILEBEAT_VERSION}"
+setup.template.pattern: "${ES_INDEX_PREFIX}-${FILEBEAT_VERSION}-*"
+setup.template.overwrite: false
