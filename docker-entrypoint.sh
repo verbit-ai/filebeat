@@ -13,11 +13,18 @@ if [ -z "$ES_INDEX_PREFIX" ];then
   ES_INDEX_PREFIX="filebeat"
 fi
 
+# check if provided filebeat config exists or not
+if [ ! -f "/${FILEBEAT_YML}" ];then
+  echo "Provided filebeat config /${FILEBEAT_YML} does not exists, switching to default one!"
+  # default filebeat.yml
+  FILEBEAT_YML="filebeat.yml"
+fi
+
 export IP_ADDRESS=${IP_ADDRESS}
 export EC2_INSTANCE_ID=${EC2_INSTANCE_ID}
 export ES_INDEX_PREFIX=${ES_INDEX_PREFIX}
 export FILEBEAT_VERSION=${FILEBEAT_VERSION}
 
-echo EC2_INSTANCE_ID $EC2_INSTANCE_ID IP_ADDRESS ${IP_ADDRESS} ES_INDEX_PREFIX ${ES_INDEX_PREFIX} FILEBEAT_VERSION ${FILEBEAT_VERSION}
-envsubst < /filebeat.yml > /usr/share/filebeat/filebeat.yml
+echo EC2_INSTANCE_ID $EC2_INSTANCE_ID IP_ADDRESS ${IP_ADDRESS} ES_INDEX_PREFIX ${ES_INDEX_PREFIX} FILEBEAT_VERSION ${FILEBEAT_VERSION} FILEBEAT_YML ${FILEBEAT_YML}
+envsubst < /${FILEBEAT_YML} > /usr/share/filebeat/filebeat.yml
 /usr/share/filebeat/filebeat -e -c /usr/share/filebeat/filebeat.yml

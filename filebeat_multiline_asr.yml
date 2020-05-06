@@ -1,0 +1,43 @@
+filebeat.inputs:
+- type: docker
+  containers:
+    ids: "*"
+    path: /var/lib/docker/containers
+    stream: all
+  json.message_key: log
+  json.keys_under_root: false
+  json.ignore_decoding_error: true
+  document_type: 'docker-logs'
+  processors:
+  - add_docker_metadata: ~
+  multiline:
+    pattern: '^===>'
+    negate: true
+    match: after
+
+- type: syslog
+  document_type: 'syslog'
+  protocol.tcp:
+    host: "0.0.0.0:9000"
+
+- type: tcp
+  max_message_size: 10MiB
+  host: "0.0.0.0:9010"
+
+output.elasticsearch:
+  hosts: ["${ES_HOST}:${ES_PORT}"]
+  username: ${ES_USER}
+  password: ${ES_PWD}
+  protocol: https
+  index: "${ES_INDEX_PREFIX}-${FILEBEAT_VERSION}-%{+YYYY.MM.dd}"
+  ssl:
+    enabled: true
+    certificate_authorities: ["${CA_PATH}"]
+    verification_mode: none
+
+fields.ip_address: "${IP_ADDRESS}"
+fields.ec2_instance_id: "${EC2_INSTANCE_ID}"
+
+setup.template.name: "${ES_INDEX_PREFIX}-${FILEBEAT_VERSION}"
+setup.template.pattern: "${ES_INDEX_PREFIX}-${FILEBEAT_VERSION}-*"
+setup.template.overwrite: false
