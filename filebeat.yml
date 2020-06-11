@@ -34,6 +34,6 @@ output.elasticsearch:
 fields.ip_address: "${IP_ADDRESS}"
 fields.ec2_instance_id: "${EC2_INSTANCE_ID}"
 
-setup.template.name: "${ES_INDEX_PREFIX}-${FILEBEAT_VERSION}"
-setup.template.pattern: "${ES_INDEX_PREFIX}-${FILEBEAT_VERSION}-*"
+setup.template.name: "${ES_INDEX_PREFIX}"
+setup.template.pattern: "${ES_INDEX_PREFIX}-*"
 setup.template.overwrite: false
