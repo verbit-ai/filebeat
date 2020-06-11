@@ -8,9 +8,13 @@ then
 fi
 
 FILEBEAT_VERSION="6.8.1"
-if [ -z "$ES_INDEX_PREFIX" ];then
-  # default elasticsearch index prefix
+
+if [ -z "$ES_INDEX_PREFIX" ];then  # default elasticsearch index prefix
   ES_INDEX_PREFIX="filebeat"
+fi
+
+if [ "$ES_INDEX_PREFIX" = "filebeat" ];then  # add filebeat version to index prefix
+  ES_INDEX_PREFIX="filebeat-${FILEBEAT_VERSION}"
 fi
 
 export IP_ADDRESS=${IP_ADDRESS}

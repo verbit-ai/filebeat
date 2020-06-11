@@ -25,7 +25,7 @@ output.elasticsearch:
   username: ${ES_USER}
   password: ${ES_PWD}
   protocol: https
-  index: "${ES_INDEX_PREFIX}-${FILEBEAT_VERSION}-%{+YYYY.MM.dd}"
+  index: "${ES_INDEX_PREFIX}-%{+YYYY.MM.dd}"
   ssl:
     enabled: true
     certificate_authorities: ["${CA_PATH}"]
