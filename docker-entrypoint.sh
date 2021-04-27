@@ -14,6 +14,10 @@ if [ -z "$ES_INDEX_PREFIX" ];then  # default elasticsearch index prefix
   ES_INDEX_PREFIX="filebeat"
 fi
 
+if [ -z "$ES_SSHD_INDEX_PREFIX" ];then  # default sshd index prefix
+  ES_SSHD_INDEX_PREFIX="sshd"
+fi
+
 if [ "$ES_INDEX_PREFIX" = "filebeat" ];then  # add filebeat version to index prefix
   ES_INDEX_PREFIX="filebeat-${FILEBEAT_VERSION}"
 fi
@@ -22,6 +26,7 @@ export IP_ADDRESS=${IP_ADDRESS}
 export EC2_INSTANCE_ID=${EC2_INSTANCE_ID}
 export EC2_INSTANCE_TYPE=${EC2_INSTANCE_TYPE}
 export ES_INDEX_PREFIX=${ES_INDEX_PREFIX}
+export ES_SSHD_INDEX_PREFIX=${ES_SSHD_INDEX_PREFIX}
 export FILEBEAT_VERSION=${FILEBEAT_VERSION}
 
 echo EC2_INSTANCE_ID $EC2_INSTANCE_ID EC2_INSTANCE_TYPE $EC2_INSTANCE_TYPE IP_ADDRESS ${IP_ADDRESS} ES_INDEX_PREFIX ${ES_INDEX_PREFIX} FILEBEAT_VERSION ${FILEBEAT_VERSION}

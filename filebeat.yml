@@ -25,7 +25,13 @@ output.elasticsearch:
   username: ${ES_USER}
   password: ${ES_PWD}
   protocol: https
-  index: "${ES_INDEX_PREFIX}-%{+YYYY.MM.dd}"
+  indices:
+    - index: "${ES_SSHD_INDEX_PREFIX}-%{+YYYY.MM.dd}"
+      when:
+         or:
+           - contains.message: "sshd"
+           - contains.message: "sudo"
+    - index: "${ES_INDEX_PREFIX}-%{+YYYY.MM.dd}"
   ssl:
     enabled: true
     certificate_authorities: ["${CA_PATH}"]
