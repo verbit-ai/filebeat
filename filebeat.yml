@@ -29,8 +29,8 @@ output.elasticsearch:
     - index: "${ES_SSHD_INDEX_PREFIX}-%{+YYYY.MM.dd}"
       when:
          or:
-           - contains.message: "sshd"
-           - contains.message: "sudo"
+           - contains.message: " sshd"
+           - contains.message: " sudo"
     - index: "${ES_INDEX_PREFIX}-%{+YYYY.MM.dd}"
   ssl:
     enabled: true
@@ -38,6 +38,7 @@ output.elasticsearch:
     verification_mode: none
 
 fields.ip_address: "${IP_ADDRESS}"
+fields.public_ipv4: "${PUBLIC_IPV4}"
 fields.ec2_instance_id: "${EC2_INSTANCE_ID}"
 fields.ec2_instance_type: "${EC2_INSTANCE_TYPE}"
 
